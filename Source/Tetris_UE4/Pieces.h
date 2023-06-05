@@ -6,11 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "Block.h"
 #include "Builder/PiezaPlano.h"
+#include "Observer/Observer.h"
 #include <functional>
+#include <vector>
 #include "Pieces.generated.h"
 
 UCLASS()
-class TETRIS_UE4_API APieces : public AActor , public IPiezaPlano
+class TETRIS_UE4_API APieces : public AActor , public IPiezaPlano, public IObserver
 {
 	GENERATED_BODY()
 	
@@ -61,4 +63,15 @@ public:
     void setBloqueExplosivo() override;
     void setBloqueMetal() override;
     void setBloqueHielo() override;
+
+    // Metodos para los suscriptores
+    virtual void Update() override;
+    void Attach(IObserver* observer);
+    void Detach(IObserver* observer);
+    void Notify();
+
+    int subscriberCount;
+
+private:
+    std::vector<IObserver*> observers;
 };

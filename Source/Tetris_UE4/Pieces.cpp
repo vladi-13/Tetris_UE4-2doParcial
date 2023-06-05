@@ -56,6 +56,8 @@ APieces::APieces()
     {
         MoveLeftRightSoundCue = MoveDown_Sound.Object;
     }
+
+    subscriberCount = 0;
 }
 
 // Called when the game starts or when spawned
@@ -212,6 +214,31 @@ void APieces::MoveLeft()
     }
 }
 
+void APieces::Update()
+{
+    // Mostrar mensaje en pantalla de UE4 con la cantidad de suscriptores
+    FString Message = FString::Printf(TEXT("Subscriber count: %d"), subscriberCount);
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, Message);
+}
+
+void APieces::Attach(IObserver* observer)
+{
+    observers.push_back(observer);
+}
+
+void APieces::Detach(IObserver* observer)
+{
+    observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+}
+
+void APieces::Notify()
+{
+    for (IObserver* observer : observers)
+    {
+        observer->Update();
+    }
+}
+
 void APieces::MoveRight()
 {
     auto MoveVectorRight = [](FVector OldVector){
@@ -230,6 +257,8 @@ void APieces::MoveRight()
             UGameplayStatics::PlaySoundAtLocation(GetWorld(), MoveLeftRightSoundCue, GetActorLocation(), GetActorRotation());
         }
     }
+    subscriberCount += 10;
+    Notify();
 }
 
 bool APieces::MoveDown(bool PlaySound)
