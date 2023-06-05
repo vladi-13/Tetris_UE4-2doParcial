@@ -216,7 +216,6 @@ void APieces::MoveLeft()
 
 void APieces::Update()
 {
-    // Mostrar mensaje en pantalla de UE4 con la cantidad de suscriptores
     FString Message = FString::Printf(TEXT("Subscriber count: %d"), subscriberCount);
     GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, Message);
 }
