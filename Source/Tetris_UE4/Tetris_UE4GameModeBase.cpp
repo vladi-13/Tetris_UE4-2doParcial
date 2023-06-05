@@ -13,6 +13,10 @@
 #include "Factory/CreadorEscena.h"
 #include "Factory/EscenaReal.h"
 #include "Factory/Escena.h"
+#include "Strategy/LugarPieza.h"
+#include "Strategy/PiezaStrategy.h"
+#include "Strategy/PiezaIzq.h"
+#include "Strategy/PiezaDer.h"
 #include "Camera/CameraActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "EngineUtils.h"
@@ -25,6 +29,7 @@ ATetris_UE4GameModeBase::ATetris_UE4GameModeBase()
     DefaultPawnClass = ABoard::StaticClass();
 
     tiempoEscena = 0.0f;
+    tiempoPieza = 0.0f;
 }
 
 void ATetris_UE4GameModeBase::BeginPlay()
@@ -113,4 +118,16 @@ void ATetris_UE4GameModeBase::Tick(float DeltaSeconds)
     //DECORATOR
     EstructuraConcreta->Rotar();
     RotacionDecorador->Rotar();
+
+    //STRATEGY
+    tiempoPieza += DeltaSeconds;
+    if (tiempoPieza >= 5.0) {
+        ALugarPieza* LugarPieza = GetWorld()->SpawnActor<ALugarPieza>(ALugarPieza::StaticClass());
+        APiezaIzq* PiezaIzq = GetWorld()->SpawnActor<APiezaIzq>(APiezaIzq::StaticClass());
+        LugarPieza->lugarPieza(PiezaIzq);
+
+        APiezaDer* PiezaDer = GetWorld()->SpawnActor<APiezaDer>(APiezaDer::StaticClass());
+        LugarPieza->lugarPieza(PiezaDer);
+        tiempoPieza = 0.0f;
+	}
 }

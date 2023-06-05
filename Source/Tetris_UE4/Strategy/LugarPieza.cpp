@@ -3,25 +3,8 @@
 
 #include "Strategy/LugarPieza.h"
 
-// Sets default values
-ALugarPieza::ALugarPieza()
+void ALugarPieza::lugarPieza(AActor* piezaStrategy)
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	PiezaStrategy = Cast<IPiezaStrategy>(piezaStrategy);
+	PiezaStrategy->SpawnBlocks();
 }
-
-// Called when the game starts or when spawned
-void ALugarPieza::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void ALugarPieza::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-

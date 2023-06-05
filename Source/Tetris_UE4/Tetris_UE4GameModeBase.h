@@ -53,4 +53,7 @@ private:
 
     //Tiempo de la escena
     float tiempoEscena;
+
+    //Tiempo de la pieza
+    float tiempoPieza;
 };

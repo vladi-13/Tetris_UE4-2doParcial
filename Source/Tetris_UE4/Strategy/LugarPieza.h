@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PiezaStrategy.h"
 #include "LugarPieza.generated.h"
 
 UCLASS()
@@ -11,16 +12,9 @@ class TETRIS_UE4_API ALugarPieza : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
-	ALugarPieza();
+private:
+	IPiezaStrategy* PiezaStrategy;
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+public:
+	void lugarPieza(AActor* piezaStrategy);
 };
