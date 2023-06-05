@@ -52,6 +52,9 @@ ABoard::ABoard()
 void ABoard::BeginPlay()
 {
 	Super::BeginPlay();
+
+    EscenarioState = GetWorld()->SpawnActor<AEscenarioState>(AEscenarioState::StaticClass());
+    State = EscenarioState->iniciar();
 	
     for(TActorIterator<APieces> it(GetWorld()); it; ++it)
     {
@@ -91,6 +94,7 @@ void ABoard::Tick(float DeltaTime)
             CoolLeft -= DeltaTime;
             if(CoolLeft <= 0.0f)
             {
+                EscenarioState->cambiarEscenario(State);
                 if(CurrentPieces)
                 {
                     CurrentPieces->Dismiss();

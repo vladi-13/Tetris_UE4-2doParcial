@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Pieces.h"
+#include "State/EscenarioState.h"
 #include "Board.generated.h"
 
 UCLASS()
@@ -49,6 +50,13 @@ public:
 
     UPROPERTY()
         class USoundCue* GameStartSoundCue;
+
+    //Propiedades para controlar el estado del juego
+    UPROPERTY()
+        AEscenarioState* EscenarioState;
+
+    UPROPERTY()
+        AEscenarioState* State;
 private:
     enum PiecesStatus { PS_NOT_INITED, PS_MOVING, PS_GOT_BOTTOM };
     PiecesStatus Status = PS_NOT_INITED;
