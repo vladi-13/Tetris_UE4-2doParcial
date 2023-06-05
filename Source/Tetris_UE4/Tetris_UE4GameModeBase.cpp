@@ -30,6 +30,7 @@ ATetris_UE4GameModeBase::ATetris_UE4GameModeBase()
 
     tiempoEscena = 0.0f;
     tiempoPieza = 0.0f;
+    tiempoPiezaFacade = 0.0f;
 }
 
 void ATetris_UE4GameModeBase::BeginPlay()
@@ -129,5 +130,14 @@ void ATetris_UE4GameModeBase::Tick(float DeltaSeconds)
         APiezaDer* PiezaDer = GetWorld()->SpawnActor<APiezaDer>(APiezaDer::StaticClass());
         LugarPieza->lugarPieza(PiezaDer);
         tiempoPieza = 0.0f;
+	}
+
+    //FACADE
+    tiempoPiezaFacade += DeltaSeconds;
+    if (tiempoPiezaFacade >= 15.0) {
+        PiezaFacade = GetWorld()->SpawnActor<APiezaFacade>(APiezaFacade::StaticClass());
+        PiezaFacade->SpawnRaraDerBlocks();
+        PiezaFacade->SpawnRaraIzqBlocks();
+        tiempoPiezaFacade = 0.0f;
 	}
 }

@@ -8,6 +8,7 @@
 #include "Adapter/AdapterMovimientoPieza_Ca.h"
 #include "Decorator/EstructuraConcreta.h"
 #include "Decorator/RotacionDecorador.h"
+#include "Facade/PiezaFacade.h"
 #include "GameFramework/GameModeBase.h"
 #include "Tetris_UE4GameModeBase.generated.h"
 
@@ -46,6 +47,9 @@ public:
         ARotacionDecorador* RotacionDecorador;  
         ARotacionDecorador* RotacionDecorador2;
 
+    //Funcion para crear las piezas facades
+        APiezaFacade* PiezaFacade;
+
 private:
     //Declarando propiedades para el uso de la creacion de piezas
     class APiezaIng* PiezaIng;
@@ -56,4 +60,7 @@ private:
 
     //Tiempo de la pieza
     float tiempoPieza;
+
+    //Tiempo de la pieza facade
+    float tiempoPiezaFacade;
 };
